@@ -1,3 +1,47 @@
+const changelogData = [
+  {
+    version: "1.2.0",
+    date: "2023-10-28",
+    title: "AFK & Offline Progression",
+    notes: [
+      "Added real-time AFK XP gain (1 XP/sec).",
+      "Implemented offline progress calculation to earn XP while game is closed.",
+      "Game now saves periodically during AFK and stores last save timestamp."
+    ]
+  },
+  {
+    version: "1.1.0",
+    date: "2023-10-27",
+    title: "UI Polish & Click Feedback",
+    notes: [
+      "UI made more compact for better viewing.",
+      "Progress bar height significantly reduced (made slimmer).",
+      "Added a shake animation to the 'Gain XP' button for tactile feedback."
+    ]
+  },
+  {
+    version: "1.0.1",
+    date: "2023-10-26",
+    title: "Gameplay Enhancements",
+    notes: [
+      "Leveling progression now has diminishing returns (XP requirement: level^1.5).",
+      "Progress bar styling updated: square edges, gradient fill, dynamic color changes (green/yellow/red)."
+    ]
+  },
+  {
+    version: "1.0.0",
+    date: "2023-10-25",
+    title: "Initial Idle RPG Release",
+    notes: [
+      "Core click-to-gain-XP mechanic.",
+      "Leveling system implemented (original XP requirement: level * 100).",
+      "XP progress bar.",
+      "Game progress (XP, level) saved to browser's localStorage."
+    ]
+  }
+];
+const currentGameVersion = changelogData[0].version;
+
 // 1. Initialization
 let xp = 0;
 let level = 1;
@@ -9,12 +53,17 @@ const levelDisplay = document.getElementById('levelDisplay');
 const xpDisplay = document.getElementById('xpDisplay');
 const progressBar = document.getElementById('progressBar');
 const gainXpButton = document.getElementById('gainXpButton');
+const changelogButton = document.getElementById('changelogButton');
+const changelogModal = document.getElementById('changelogModal');
+const closeChangelogButton = document.getElementById('closeChangelogButton');
+const changelogEntries = document.getElementById('changelogEntries');
 
 // 2. Load Game Data
 function loadGame() {
     const savedXp = localStorage.getItem('rpg_xp');
     const savedLevel = localStorage.getItem('rpg_level');
     const lastSaveTimestamp = localStorage.getItem('rpg_lastSaveTimestamp');
+    const lastSeenVersion = localStorage.getItem('rpg_lastSeenVersion');
 
     if (savedXp !== null && savedLevel !== null) {
         xp = parseInt(savedXp, 10);
@@ -42,6 +91,29 @@ function loadGame() {
 
     checkLevelUp(); // Process any level ups from offline gains
     updateDisplay(); // Update display with final loaded state
+
+    // "What's New" logic
+    if (lastSeenVersion === null || lastSeenVersion !== currentGameVersion) {
+        let newEntriesToShow = [];
+        if (lastSeenVersion === null) {
+            newEntriesToShow.push(changelogData[0]); // Show latest for brand new players
+        } else {
+            for (const entry of changelogData) { // changelogData is newest to oldest
+                if (entry.version === lastSeenVersion) break;
+                newEntriesToShow.push(entry);
+            }
+            // To show oldest new entry first, uncomment the next line
+            // newEntriesToShow.reverse(); 
+        }
+
+        if (newEntriesToShow.length > 0 && changelogModal) { // Ensure modal exists
+            const modalTitleElement = changelogModal.querySelector('h2');
+            if (modalTitleElement) { // Ensure title element exists
+                 modalTitleElement.textContent = "What's New";
+            }
+            displayChangelog(newEntriesToShow); // Call with filtered entries
+        }
+    }
 }
 
 // 3. Save Game Data
@@ -49,6 +121,7 @@ function saveGame() {
     localStorage.setItem('rpg_xp', xp);
     localStorage.setItem('rpg_level', level);
     localStorage.setItem('rpg_lastSaveTimestamp', Date.now());
+    localStorage.setItem('rpg_lastSeenVersion', currentGameVersion);
 }
 
 // 4. Update Display
@@ -114,3 +187,60 @@ function handleAfkProgress() {
 // 7. Initial Game Load
 loadGame();
 setInterval(handleAfkProgress, 1000); // Run every 1000ms (1 second)
+
+// Changelog Modal Logic
+function displayChangelog(entriesToShow = changelogData) {
+    if (!changelogEntries) return; // Guard if element doesn't exist
+    changelogEntries.innerHTML = ''; // Clear previous entries
+
+    entriesToShow.forEach(entry => {
+        const entryDiv = document.createElement('div');
+        entryDiv.classList.add('entry');
+
+        const titleH3 = document.createElement('h3');
+        titleH3.textContent = `${entry.title} (v${entry.version})`;
+        entryDiv.appendChild(titleH3);
+
+        const dateP = document.createElement('p');
+        dateP.textContent = `Date: ${entry.date}`;
+        entryDiv.appendChild(dateP);
+
+        const notesUl = document.createElement('ul');
+        entry.notes.forEach(noteText => {
+            const li = document.createElement('li');
+            li.textContent = noteText;
+            notesUl.appendChild(li);
+        });
+        entryDiv.appendChild(notesUl);
+        changelogEntries.appendChild(entryDiv);
+    });
+    changelogModal.style.display = 'block';
+}
+
+if (changelogButton) { // Check if button exists before adding listener
+    changelogButton.addEventListener('click', displayChangelog);
+}
+
+if (closeChangelogButton) { // Check if button exists
+    closeChangelogButton.addEventListener('click', () => {
+        if (changelogModal) {
+            changelogModal.style.display = 'none';
+            const modalTitleElement = changelogModal.querySelector('h2');
+            if (modalTitleElement) {
+                modalTitleElement.textContent = "Changelog"; // Reset title
+            }
+        }
+    });
+}
+
+window.addEventListener('click', (event) => {
+    if (event.target === changelogModal) {
+        if (changelogModal) {
+            changelogModal.style.display = 'none';
+            const modalTitleElement = changelogModal.querySelector('h2');
+            if (modalTitleElement) {
+                modalTitleElement.textContent = "Changelog"; // Reset title
+            }
+        }
+    }
+});

@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Idle RPG</h1>
+    <button id="changelogButton" style="font-size: 0.8em; padding: 5px; margin-bottom: 10px;">View Changelog</button>
     <div id="levelDisplay">Level: 1</div>
     <div id="xpDisplay">XP: 0/100</div>
     <div id="progress-bar-container">
@@ -15,5 +16,15 @@
     </div>
     <button id="gainXpButton">Gain XP</button>
     <script src="script.js"></script>
+
+    <div id="changelogModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-button" id="closeChangelogButton">&times;</span>
+            <h2>Changelog</h2>
+            <div id="changelogEntries">
+                <!-- Changelog content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
 </body>
 </html>

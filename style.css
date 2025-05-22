@@ -99,3 +99,90 @@ h1 {
 .shake-animation {
   animation: shake 0.3s ease-in-out;
 }
+
+/* Media Query for Smaller Screens */
+@media (max-width: 400px) {
+    h1 {
+        font-size: 1.8em; /* Reduced font size */
+        margin-bottom: 8px; /* Slightly reduced margin */
+    }
+
+    #levelDisplay, #xpDisplay {
+        font-size: 1em; /* Reduced font size */
+        margin: 4px 0; /* Slightly reduced margin */
+    }
+
+    #progress-bar-container {
+        margin: 8px 0; /* Slightly reduced margin */
+    }
+
+    #gainXpButton {
+        font-size: 0.9em; /* Reduced font size */
+        padding: 10px 12px; /* Adjusted padding for better touch target/fit */
+    }
+}
+
+/* Modal Base */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 10% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 600px; /* Max width */
+    border-radius: 8px;
+    position: relative;
+}
+
+/* Close Button */
+.close-button {
+    color: #aaa;
+    float: right; /* Position to the top-right */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Changelog Entries Styling */
+#changelogEntries .entry {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+#changelogEntries .entry:last-child {
+    border-bottom: none;
+}
+#changelogEntries h3 { /* Version title */
+    margin-top: 0;
+    font-size: 1.2em;
+}
+#changelogEntries p { /* Date */
+    font-size: 0.8em;
+    color: #666;
+    margin-top: -5px;
+    margin-bottom: 5px;
+}
+#changelogEntries ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 0;
+}
