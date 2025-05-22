@@ -14,7 +14,7 @@ body {
 /* 2. Game Container (using a general class for game content) */
 .game-container { /* Assuming a wrapper div might be added later or apply to body if not */
     border: 1px solid #ddd;
-    padding: 20px;
+    padding: 10px; /* Reduced padding */
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     border-radius: 8px;
@@ -25,14 +25,14 @@ body {
 
 /* Apply game-container styles to h1 and subsequent elements for now if no explicit container is in HTML */
 h1 {
-    margin-bottom: 20px;
+    margin-bottom: 10px; /* Reduced margin */
     color: #333;
 }
 
 /* 3. Display Areas (levelDisplay, xpDisplay) */
 #levelDisplay, #xpDisplay {
     font-size: 1.2em;
-    margin: 10px 0;
+    margin: 5px 0; /* Reduced margin */
     color: #555;
 }
 
@@ -41,8 +41,8 @@ h1 {
     width: 100%; /* 100% of its parent */
     border: 1px solid #ccc;
     background-color: #e0e0e0; /* Background for the empty part */
-    height: 30px;
-    margin: 20px 0;
+    height: 10px; /* Reduced height */
+    margin: 10px 0; /* Reduced margin */
     /* border-radius: 5px; */ /* Removed for square edges */
     overflow: hidden; /* Ensures the fill stays within the rounded borders */
 }
@@ -74,7 +74,7 @@ h1 {
 
 /* 6. Button (gainXpButton) */
 #gainXpButton {
-    padding: 10px 20px;
+    padding: 8px 15px; /* Reduced padding */
     font-size: 1em;
     background-color: #007bff; /* Blue shade */
     color: white;
@@ -86,4 +86,16 @@ h1 {
 
 #gainXpButton:hover {
     background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Shake Animation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+}
+
+.shake-animation {
+  animation: shake 0.3s ease-in-out;
 }

@@ -63,10 +63,18 @@ function checkLevelUp() {
 
 // 5. Gain XP
 gainXpButton.addEventListener('click', () => {
+    // Add shake animation
+    gainXpButton.classList.add('shake-animation');
+
     xp += 1; // Increment xp by 1
     checkLevelUp();
     updateDisplay();
     saveGame();
+
+    // Remove shake animation after it finishes
+    setTimeout(() => {
+        gainXpButton.classList.remove('shake-animation');
+    }, 300); // Duration matches the CSS animation
 });
 
 // 7. Initial Game Load
