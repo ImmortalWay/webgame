@@ -43,20 +43,33 @@ h1 {
     background-color: #e0e0e0; /* Background for the empty part */
     height: 30px;
     margin: 20px 0;
-    border-radius: 5px;
+    /* border-radius: 5px; */ /* Removed for square edges */
     overflow: hidden; /* Ensures the fill stays within the rounded borders */
 }
 
 /* 5. Progress Bar Fill (progressBar) */
 #progressBar {
     width: 0%; /* Initial width */
-    background-color: #4CAF50; /* Green shade */
+    background: linear-gradient(to bottom, #60e060, #4CAF50); /* Default Green gradient */
     height: 100%; /* 100% of its container's height */
-    transition: width 0.3s ease; /* Smooth transition for width changes */
+    transition: width 0.3s ease, background-color 0.3s ease; /* Smooth transition for width and color */
     display: flex; /* For potentially adding text inside later */
     align-items: center;
     justify-content: center;
     color: white; /* Text color for any text inside the progress bar */
+}
+
+/* New CSS Classes for Dynamic Progress Bar Colors */
+#progressBar.progress-low {
+    background: linear-gradient(to bottom, #60e060, #4CAF50); /* Green */
+}
+
+#progressBar.progress-medium {
+    background: linear-gradient(to bottom, #f0e060, #efc647); /* Yellow */
+}
+
+#progressBar.progress-high {
+    background: linear-gradient(to bottom, #f06060, #e04040); /* Red */
 }
 
 /* 6. Button (gainXpButton) */

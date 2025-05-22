@@ -20,7 +20,7 @@ function loadGame() {
         xp = 0;
         level = 1;
     }
-    xpToNextLevel = level * 100;
+    xpToNextLevel = Math.floor(100 * Math.pow(level, 1.5));
     updateDisplay();
 }
 
@@ -36,6 +36,18 @@ function updateDisplay() {
     xpDisplay.textContent = "XP: " + xp + " / " + xpToNextLevel;
     const progressPercentage = (xp / xpToNextLevel) * 100;
     progressBar.style.width = progressPercentage + "%";
+
+    // Remove existing dynamic color classes
+    progressBar.classList.remove('progress-low', 'progress-medium', 'progress-high');
+
+    // Add the appropriate class based on progressPercentage
+    if (progressPercentage >= 90) {
+        progressBar.classList.add('progress-high');
+    } else if (progressPercentage >= 70) {
+        progressBar.classList.add('progress-medium');
+    } else {
+        progressBar.classList.add('progress-low');
+    }
 }
 
 // 6. Level Up
@@ -43,7 +55,7 @@ function checkLevelUp() {
     if (xp >= xpToNextLevel) {
         level++;
         xp = xp - xpToNextLevel; // Carry over excess XP
-        xpToNextLevel = level * 100;
+        xpToNextLevel = Math.floor(100 * Math.pow(level, 1.5));
         updateDisplay(); // Update display after level up before checking again
         checkLevelUp(); // Recursively check for multiple level ups
     }
