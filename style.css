@@ -1,0 +1,76 @@
+/* 1. Body/General */
+body {
+    font-family: sans-serif;
+    color: #333;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* 2. Game Container (using a general class for game content) */
+.game-container { /* Assuming a wrapper div might be added later or apply to body if not */
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    text-align: center; /* Center text content within the container */
+    max-width: 500px;
+    width: 90%;
+}
+
+/* Apply game-container styles to h1 and subsequent elements for now if no explicit container is in HTML */
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* 3. Display Areas (levelDisplay, xpDisplay) */
+#levelDisplay, #xpDisplay {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #555;
+}
+
+/* 4. Progress Bar Container (progress-bar-container) */
+#progress-bar-container {
+    width: 100%; /* 100% of its parent */
+    border: 1px solid #ccc;
+    background-color: #e0e0e0; /* Background for the empty part */
+    height: 30px;
+    margin: 20px 0;
+    border-radius: 5px;
+    overflow: hidden; /* Ensures the fill stays within the rounded borders */
+}
+
+/* 5. Progress Bar Fill (progressBar) */
+#progressBar {
+    width: 0%; /* Initial width */
+    background-color: #4CAF50; /* Green shade */
+    height: 100%; /* 100% of its container's height */
+    transition: width 0.3s ease; /* Smooth transition for width changes */
+    display: flex; /* For potentially adding text inside later */
+    align-items: center;
+    justify-content: center;
+    color: white; /* Text color for any text inside the progress bar */
+}
+
+/* 6. Button (gainXpButton) */
+#gainXpButton {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #007bff; /* Blue shade */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#gainXpButton:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
